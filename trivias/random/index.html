@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Trivia Game</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/Users/Jaymar/SMU_HW/week5/TriviaGame/assets/css/style.css"> -->
+    <link rel="stylesheet" href="style.css">
+
+
+    <!-- Custom styles for this template -->
+    <!--    <link href="jumbotron-narrow.css" rel="stylesheet">-->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=KoHo:wght@600&display=swap" rel="stylesheet">
+    <style>
+        .title {
+            font-family: 'KoHo', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div class="header text-center clearfix">
+            <h1 class="title">Random Trivia</h1>
+        </div>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <div id="game">
+                    <h2 class="title">Random Trivia</h2>
+                    <p id="remaining-time" class="lead">Remaining Time: <span id="timer"></span></p>
+                    <p id="question" class="lead"></p>
+                </div>
+                <div id="results">
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="choices" class="text-center">
+                    <button id="start" class="btn btn-info btn-lg">Start Game</button>
+                    <div id="options">
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="alan-btn"></div>
+        <!-- /container -->
+
+        <!-- jQuery CDN-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Bootstrap CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- TRIVIA APP JS -->
+        <script src="app.js"></script>
+        <!-- Alan AI JS -->
+        <script type="text/javascript" src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
+        <script>
+            var alanBtnInstance = alanBtn({
+                key: "85738645b01afe1f68cf0965b331a4f42e956eca572e1d8b807a3e2338fdd0dc/stage",
+                onCommand: function(commandData) {
+                    if (commandData.command === "gameStart") {
+                        if (trivia.gameStarted) {
+                            alanBtnInstance.playText("You are already started!");
+                        } else {
+                            document.getElementById("start").click();
+
+                        }
+                    }
+                    if (commandData.command == "input") {
+                        var btns = document.getElementsByClassName("option");
+                        alert(btns[0].innerText);
+                        var test = commandData.answer;
+                        alert(test);
+                        for (let i = 0; i < 4; i++) {
+                            if (commandData.answer == btns[i].innerText) {
+                                btns[i].click();
+                            }
+                        }
+                    }
+                },
+                rootEl: document.getElementById("alan-btn"),
+            });
+
+
+
+            alanBtnInstance.activate();
+            alanBtnInstance.playText("Hi I am Alan, say or click start.");
+
+            document.getElementById("start").addEventListener("click", function() {
+
+                setTimeout(function() {
+
+                    var node = document.getElementById("question")
+                    var content = node.textContent
+                    var hi = "hi"
+                    alanBtnInstance.playText(content)
+                }, 500);
+
+
+                document.getElementById("options").addEventListener("click", function() {
+
+                    setTimeout(function() {
+                        alanBtnInstance.activate();
+
+                        var node = document.getElementById("question");
+                        var content = node.textContent;
+
+                        alanBtnInstance.playText(content);
+                        alanBtnInstance.activate();
+
+
+
+
+                    }, 2000);
+                });
+
+
+
+            });
+        </script>
+
+
+
+</body>
+
+</html>

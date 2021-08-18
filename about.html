@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+
+<head>
+    <title>VoTri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        * {
+            outline: none;
+        }
+        
+        strong {
+            font-weight: 600;
+        }
+        
+        .page {
+            width: 100%;
+            height: 100vh;
+            font-family: 'Encode Sans Condensed', sans-serif;
+            font-weight: 600;
+            letter-spacing: .03em;
+            color: #ffffff;
+        }
+        
+        header {
+            display: flex;
+            position: fixed;
+            width: 100%;
+            height: 70px;
+            background-color: #000;
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        
+        main {
+            padding: 70px 20px 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        main>div {
+            margin: auto;
+            max-width: 600px;
+        }
+        
+        main h2 span {
+            color: #BF7497;
+        }
+        
+        main p {
+            line-height: 1.5;
+            font-weight: 200;
+            margin: 20px 0;
+        }
+        
+        main small {
+            font-weight: 300;
+            color: rgb(255, 255, 255);
+        }
+        
+        #nav-container {
+            position: fixed;
+            height: 100vh;
+            width: 100%;
+            pointer-events: none;
+        }
+        
+        #nav-container .bg {
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 70px);
+            visibility: hidden;
+            opacity: 0;
+            transition: .3s;
+            background: #000;
+        }
+        
+        #nav-container:focus-within .bg {
+            visibility: visible;
+            opacity: .6;
+        }
+        
+        #nav-container * {
+            visibility: visible;
+        }
+        
+        .button {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1;
+            -webkit-appearance: none;
+            border: 0;
+            background: transparent;
+            border-radius: 0;
+            height: 70px;
+            width: 30px;
+            cursor: pointer;
+            pointer-events: auto;
+            margin-left: 25px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        
+        .icon-bar {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: rgb(255, 255, 255);
+            transition: .3s;
+        }
+        
+        .icon-bar+.icon-bar {
+            margin-top: 5px;
+        }
+        
+        #nav-container:focus-within .button {
+            pointer-events: none;
+        }
+        
+        #nav-container:focus-within .icon-bar:nth-of-type(1) {
+            transform: translate3d(0, 8px, 0) rotate(45deg);
+        }
+        
+        #nav-container:focus-within .icon-bar:nth-of-type(2) {
+            opacity: 0;
+        }
+        
+        #nav-container:focus-within .icon-bar:nth-of-type(3) {
+            transform: translate3d(0, -8px, 0) rotate(-45deg);
+        }
+        
+        #nav-content {
+            margin-top: 70px;
+            padding: 20px;
+            width: 90%;
+            max-width: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: calc(100% - 70px);
+            background: #cfcfcf;
+            pointer-events: auto;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            transform: translateX(-100%);
+            transition: transform .3s;
+            will-change: transform;
+            contain: paint;
+        }
+        
+        #nav-content ul {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #nav-content li a {
+            padding: 10px 5px;
+            display: block;
+            text-transform: uppercase;
+            transition: color .1s;
+        }
+        
+        #nav-content li a:hover {
+            color: #BF7497;
+        }
+        
+        #nav-content li:not(.small)+.small {
+            margin-top: auto;
+        }
+        
+        .small {
+            display: flex;
+            align-self: center;
+        }
+        
+        .small a {
+            font-size: 12px;
+            font-weight: 400;
+            color: #888;
+        }
+        
+        .small a+a {
+            margin-left: 15px;
+        }
+        
+        #nav-container:focus-within #nav-content {
+            transform: none;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html,
+        body {
+            height: 100%;
+        }
+        
+        a,
+        a:visited,
+        a:focus,
+        a:active,
+        a:link {
+            text-decoration: none;
+            outline: 0;
+        }
+        
+        a {
+            color: currentColor;
+            transition: .2s ease-in-out;
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin: 0;
+        }
+        
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+        
+        img {
+            vertical-align: middle;
+            height: auto;
+        }
+    </style>
+
+    <link rel="stylesheet" href="all-animation.min.css">
+
+</head>
+
+<body>
+    <div class="page">
+        <header tabindex="0" class="enter-left-bounce">
+            <h1>VoTri</h1>
+        </header>
+        <div id="nav-container">
+            <div class="bg"></div>
+            <div class="button" tabindex="0">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </div>
+            <div id="nav-content" tabindex="0">
+                <ul>
+                    <li><a href="main.html">Home</a></li>
+                    <li><a href="search.html">Trivias</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li>
+                        <a href="#0"></a>
+                    </li>
+
+                    <li class="small"><a target="_blank" href="#0">Youtube</a><a target="_blank" href="https://www.instagram.com/votri01/">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <main class="enter-down-bounce">
+            <!-- <h1 style=font-size:70px class="title">About Us</h1>
+
+            Images and names of the team
+            Kartik Pulipati
+            <img style='height: 200px; width: 200px; margin-right: 4px;' src='https://media-exp1.licdn.com/dms/image/C4E03AQHcVkGt99fBQg/profile-displayphoto-shrink_200_200/0/1628574898464?e=1634774400&v=beta&t=lZgrEgqsohxNMSY1xZKaZsObqjtzKekijsPwSWAGTT4' />
+            <h4 class='liketext'>Kartik Pulipati
+                <a href="https://www.linkedin.com/in/kartik-muralimohan-pulipati-168a27219/"><img style='height: 20px; width: 20px;' src="https://bankimooncentre.org/wp-content/uploads/2020/05/LinkedIn-Icon-Square-300x300.png"></h4>
+
+           Joseph Fujimoto
+            <img style='height: 200px; width: 200px; margin-right: 4px;' src='https://media-exp1.licdn.com/dms/image/C5603AQHMTAo7GMzeNg/profile-displayphoto-shrink_200_200/0/1624757666232?e=1634774400&v=beta&t=799tm9loLZSl_oLKXQH3HjnXeW6AGmferSpcDLIcQ0M' />
+            <h4 class='liketext'>Joseph Fujimoto
+                <a href="https://www.linkedin.com/in/joseph-fujimoto-182359205/"><img style='height: 20px; width: 20px;' src="https://bankimooncentre.org/wp-content/uploads/2020/05/LinkedIn-Icon-Square-300x300.png"></h4>
+
+            <div class="content">
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+                <script src="" async defer></script>
+            </div> -->
+            <br>
+            <br>
+            <br>
+            <h1 style="text-align: center;">Being Worked On!</h1>
+        </main>
+    </div>
+</body>
+
+</html>
